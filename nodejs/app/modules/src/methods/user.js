@@ -22,7 +22,7 @@ exports.create = async (data) => {
 
     let input = data;
     try {
-        input = await Joi.validate(data, inputSchema);
+        input = await inputSchema.validateAsync(data);
     } catch (err) {
         throw err.message;
     }

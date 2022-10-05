@@ -1,0 +1,17 @@
+version: '3'
+services:
+  db:
+    build: ./mysql
+    ports:
+      - "3306:3306"
+  node:
+    build: ./app
+    ports:
+     - "6500:6500"
+    depends_on:
+     - db
+    volumes:
+     - ./app:/usr/src/app
+     - /usr/src/app/node_modules
+    command: bash -c 'while !</dev/tcp/db/3306; do sleep 10; done; npm start'
+     
